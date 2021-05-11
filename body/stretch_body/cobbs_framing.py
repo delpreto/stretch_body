@@ -7,6 +7,7 @@ import struct
 #MIT License
 #Copyright (c) 2017 Christopher Baker https://christopherbaker.net
 
+
 class CobbsFraming():
     """
     Encoding for communications
