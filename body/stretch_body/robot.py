@@ -21,30 +21,6 @@ from serial import SerialException
 from stretch_body.robot_monitor import RobotMonitor
 from stretch_body.robot_sentry import RobotSentry
 
-# #############################################################
-class RobotDynamixelThread(threading.Thread):
-    """
-    This thread polls the status data of the Dynamixel devices
-    at 15Hz
-    """
-    def __init__(self,robot):
-        threading.Thread.__init__(self)
-        self.robot=robot
-        self.robot_update_rate_hz = 15.0  #Hz
-        self.timer_stats = hello_utils.TimerStats()
-        self.shutdown_flag = threading.Event()
-        self.first_status=False
-
-    def run(self):
-        while not self.shutdown_flag.is_set():
-            ts = time.time()
-            self.robot._pull_status_dynamixel()
-            self.first_status=True
-            te = time.time()
-            tsleep = max(0.001, (1 / self.robot_update_rate_hz) - (te - ts))
-            if not self.shutdown_flag.is_set():
-                time.sleep(tsleep)
-
 
 
 class RobotThread(threading.Thread):
